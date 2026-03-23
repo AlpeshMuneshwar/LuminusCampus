@@ -1,0 +1,175 @@
+@model List<UserViewModel>
+
+@{
+    ViewData["Title"] = "Client Hierarchy";
+    var designations = ViewBag.Designations as List<webappi.Data.ErpDesignation>;
+}
+
+<style>
+    /* Hierarchy Visuals */
+    .tree-connector {
+        width: 20px;
+        height: 40px;
+        border-left: 2px solid #dee2e6;
+        border-bottom: 2px solid #dee2e6;
+        display: inline-block;
+        margin-right: 5px;
+        margin-left: 15px;
+        border-bottom-left-radius: 10px;
+        position: relative;
+        top: -15px; /* Pull up to connect to row above */
+    }
+    .tree-spacer {
+        width: 20px;
+        display: inline-block;
+        margin-left: 15px;
+    }
+    .child-row {
+        background-color: #f8f9fa;
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>Hierarchy Management</h1>
+        <p class="text-muted">Manage Admins and their Staff</p>
+    </div>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<!-- Create Client Section -->
+<div class="card shadow-sm border-0 mb-4">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0 text-primary"><i class="lni lni-plus"></i> Create New Client (Admin)</h5>
+    </div>
+    <div class="card-body">
+        <form asp-action="CreateClient" method="post" class="row g-3">
+            <div class="col-md-3">
+                <label class="form-label text-muted small text-uppercase fw-bold">Full Name</label>
+                <input type="text" name="FullName" class="form-control" required placeholder="e.g. John Doe">
+            </div>
+            <div class="col-md-3">
+                <label class="form-label text-muted small text-uppercase fw-bold">Email</label>
+                <input type="email" name="Email" class="form-control" required placeholder="client@example.com">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label text-muted small text-uppercase fw-bold">Designation</label>
+                <select name="DesignationId" class="form-select">
+                    @if (designations != null)
+                    {
+                        foreach (var d in designations)
+                        {
+                            <option value="@d.Id">@d.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <div class="col-md-3">
+                <label class="form-label text-muted small text-uppercase fw-bold">Password</label>
+                <input type="password" name="Password" class="form-control" required placeholder="******">
+            </div>
+            <div class="col-md-1 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Create</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card shadow-sm border-0">
+    <div class="card-header bg-white py-3">
+        <h5 class="mb-0">User Hierarchy Tree</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">User Hierarchy (Who created who)</th>
+                        <th>Designation</th>
+                        <th>Email</th>
+                        <th>Roles</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        // Root Level (Admins created by SuperAdmin)
+                        // Assuming SuperAdmin is not in the list (filtered in Controller), but ParentName would be "Super Administrator"
+                        // Or we filter by UserType == "Admin" as the Top Level for this view
+                        var admins = Model.Where(u => u.UserType == "Admin").ToList();
+                        
+                        foreach (var admin in admins)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-primary rounded-circle text-white d-flex align-items-center justify-content-center me-2" style="width:32px; height:32px;">
+                                            <i class="lni lni-user"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">@admin.FullName</div>
+                                            <div class="small text-muted">Created by: @admin.ParentName</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td><span class="badge bg-light text-dark border">@admin.Designation</span></td>
+                                <td>@admin.Email</td>
+                                <td><span class="badge bg-primary-subtle text-primary border border-primary-subtle">Admin</span></td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="ManageRights" asp-route-id="@admin.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="lni lni-cog"></i> Rights
+                                    </a>
+                                </td>
+                            </tr>
+
+                            // Children (Staff created by this Admin)
+                            var children = Model.Where(u => u.ParentUserId == admin.Id).ToList();
+                            foreach (var child in children)
+                            {
+                                <tr class="child-row">
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center">
+                                            <!-- Visual Connector -->
+                                            <div class="tree-connector"></div>
+                                            <div class="bg-warning rounded-circle text-white d-flex align-items-center justify-content-center me-2" style="width:32px; height:32px;">
+                                                <i class="lni lni-users"></i>
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium text-dark">@child.FullName</div>
+                                                <div class="small text-muted">Child of @admin.FullName</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td><span class="badge bg-light text-dark border">@child.Designation</span></td>
+                                    <td>@child.Email</td>
+                                    <td><span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle">@child.UserType</span></td>
+                                    <td class="text-end pe-4">
+                                        <!-- Actions for Staff? Usually SuperAdmin manages Rights for Clients, Clients manage Staff. 
+                                             But SuperAdmin *can* delete/edit if needed. For now show basic info/no-op or ManageRights if universal -->
+                                        <a asp-action="ManageRights" asp-route-id="@child.Id" class="btn btn-sm btn-outline-secondary">
+                                           <i class="lni lni-eye"></i> View
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

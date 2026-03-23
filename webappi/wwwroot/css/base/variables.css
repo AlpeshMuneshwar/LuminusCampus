@@ -1,0 +1,63 @@
+:root {
+    /* --- Premium Palette (Glassmorphism & Clean Tech) --- */
+
+    /* Brand Colors */
+    --primary-hue: 220;
+    /* Deep Royal Blue */
+    --primary-sat: 90%;
+    --primary-lit: 55%;
+    --primary: hsl(var(--primary-hue), var(--primary-sat), var(--primary-lit));
+    --primary-hover: hsl(var(--primary-hue), var(--primary-sat), 45%);
+    --primary-light: hsl(var(--primary-hue), var(--primary-sat), 94%);
+    /* Backgrounds */
+    --primary-glass: hsla(var(--primary-hue), var(--primary-sat), var(--primary-lit), 0.15);
+
+    --secondary: #6c757d;
+    --success: #2ecc71;
+    --danger: #e74c3c;
+    --warning: #f1c40f;
+    --info: #3498db;
+
+    /* Surface & Backgrounds */
+    --bg-app: #f4f6f9;
+    /* Light Grey-Blue tint */
+    --surface: #ffffff;
+    --surface-glass: rgba(255, 255, 255, 0.75);
+    --border-color: #e2e8f0;
+    --glass-border: rgba(255, 255, 255, 0.5);
+
+    /* Typography */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --text-main: #1e293b;
+    /* Slate 800 */
+    --text-muted: #64748b;
+    /* Slate 500 */
+
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    --shadow-glass: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+
+    /* Layout */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1rem;
+    --nav-width: 260px;
+    --header-height: 70px;
+}
+
+[data-theme="dark"] {
+    /* Dark Mode Overrides */
+    --bg-app: #0f172a;
+    /* Slate 900 */
+    --surface: #1e293b;
+    /* Slate 800 */
+    --surface-glass: rgba(30, 41, 59, 0.75);
+    --border-color: #334155;
+    --glass-border: rgba(255, 255, 255, 0.08);
+
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+
+    --primary-light: hsla(var(--primary-hue), var(--primary-sat), var(--primary-lit), 0.2);
+}

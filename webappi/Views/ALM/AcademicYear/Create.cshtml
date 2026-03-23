@@ -1,0 +1,40 @@
+@model webappi.Data.ErpAcademicYear
+
+@{
+    ViewData["Title"] = "Create Academic Year";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <er-card title="Create Academic Year" subtitle="Define a new academic session/batch" icon="lni-calendar">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <er-input asp-for="Name" label="Session Name" placeholder="e.g. 2025-2026" icon="lni-tag" />
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <er-input asp-for="StartDate" label="Start Date" type="date" icon="lni-calendar" />
+                    </div>
+                    <div class="col-md-6">
+                        <er-input asp-for="EndDate" label="End Date" type="date" icon="lni-calendar" />
+                    </div>
+                </div>
+
+                <er-checkbox asp-for="IsCurrent" label="Set as Current Active Session" />
+                <small class="text-muted d-block mb-3">Setting this will unset any other current sessions.</small>
+
+                <er-checkbox asp-for="IsActive" label="Is Active" />
+
+                <div class="d-flex gap-2 mt-3">
+                    <er-button type="submit" icon="lni-save">Create Session</er-button>
+                    <er-button href="/ALM/AcademicYear" variant="Secondary" icon="lni-arrow-left">Back to List</er-button>
+                </div>
+            </form>
+        </er-card>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

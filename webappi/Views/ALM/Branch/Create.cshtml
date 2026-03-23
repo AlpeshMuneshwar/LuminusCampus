@@ -1,0 +1,34 @@
+@model webappi.Data.ErpBranch
+
+@{
+    ViewData["Title"] = "Create Branch";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <er-card title="Create New Branch" subtitle="Add a specialization under a program" icon="lni-network">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <er-input asp-for="Name" label="Branch Name" placeholder="e.g. Computer Science" icon="lni-tag" />
+                <er-input asp-for="Code" label="Branch Code" placeholder="e.g. CSE" icon="lni-code" />
+                
+                <er-select asp-for="ProgramId" label="Program (Degree)" asp-items="ViewBag.ProgramId" icon="lni-graduation" placeholder="-- Select Program --" />
+                
+                <er-select asp-for="DepartmentId" label="Department (Admin Unit)" asp-items="ViewBag.DepartmentId" icon="lni-briefcase" placeholder="-- Select Department --" />
+                <small class="text-muted d-block mb-3">Optional: Link to the administrative department managing this branch.</small>
+
+                <er-checkbox asp-for="IsActive" label="Is Active" />
+
+                <div class="d-flex gap-2 mt-3">
+                    <er-button type="submit" icon="lni-save">Create Branch</er-button>
+                    <er-button href="/ALM/Branch" variant="Secondary" icon="lni-arrow-left">Back to List</er-button>
+                </div>
+            </form>
+        </er-card>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,99 @@
+@model List<webappi.Data.UserSession>
+@{
+    ViewData["Title"] = "Session Logs";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1 class="h3 mb-0">Session Logs</h1>
+        <p class="text-muted">Monitor and manage active user sessions.</p>
+    </div>
+    <button class="btn btn-outline-primary" onclick="location.reload()">
+        <i class="lni lni-reload"></i> Refresh
+    </button>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card shadow-sm border-0">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th class="ps-4">User</th>
+                        <th>Device / IP</th>
+                        <th>Login Time</th>
+                        <th>Last Seen</th>
+                        <th>Status</th>
+                        <th class="text-end pe-4">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="6" class="text-center py-4 text-muted">No session logs found.</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var session in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="fw-medium">@session.User.FullName</div>
+                                    <small class="text-muted">@session.User.Email</small>
+                                </td>
+                                <td>
+                                    <div class="text-dark small"><i class="lni lni-laptop-phone me-1"></i> @session.Browser</div>
+                                    <code class="text-primary bg-light px-2 py-1 rounded small">@session.IPAddress</code>
+                                </td>
+                                <td class="small">@session.LoginTime.ToLocalTime().ToString("g")</td>
+                                <td class="small">@(session.LastSeen?.ToLocalTime().ToString("g") ?? "-")</td>
+                                <td>
+                                    @if (session.IsActive)
+                                    {
+                                        <span class="badge bg-success-subtle text-success border border-success-subtle">Active</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle">Terminated</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-4">
+                                    @if (session.IsActive)
+                                    {
+                                        <form asp-action="Kill" asp-route-id="@session.Id" method="post" 
+                                              class="d-inline" onsubmit="return confirm('Are you sure you want to kill this session? The user will be logged out.');">
+                                            <button type="button" class="btn btn-sm btn-outline-danger" onclick="$(this).closest('form').submit()">
+                                                <i class="lni lni-power-switch"></i> Kill
+                                            </button>
+                                        </form>
+                                    }
+                                    else if (session.LogoutTime.HasValue)
+                                    {
+                                        <small class="text-muted">Logout: @session.LogoutTime.Value.ToLocalTime().ToString("t")</small>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

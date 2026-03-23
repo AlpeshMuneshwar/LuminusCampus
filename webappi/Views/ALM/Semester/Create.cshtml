@@ -1,0 +1,32 @@
+@model webappi.Data.ErpSemester
+
+@{
+    ViewData["Title"] = "Create Semester";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <er-card title="Create Semester" subtitle="Define a term within an academic program" icon="lni-layers">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                
+                <er-select asp-for="ProgramId" label="Program (Degree)" asp-items="ViewBag.ProgramId" icon="lni-graduation" placeholder="-- Select Program --" />
+                
+                <er-input asp-for="Name" label="Semester Name" placeholder="e.g. Semester 1" icon="lni-tag" />
+                <er-input asp-for="Code" label="Semester Code" placeholder="e.g. SEM1" icon="lni-code" />
+                <er-input asp-for="SequenceNo" label="Sequence (Order)" type="number" icon="lni-sort-amount-asc" />
+
+                <er-checkbox asp-for="IsActive" label="Is Active" />
+
+                <div class="d-flex gap-2 mt-3">
+                    <er-button type="submit" icon="lni-save">Create Semester</er-button>
+                    <er-button href="/ALM/Semester" variant="Secondary" icon="lni-arrow-left">Back to List</er-button>
+                </div>
+            </form>
+        </er-card>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

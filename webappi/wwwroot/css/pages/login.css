@@ -1,0 +1,84 @@
+/* -------------------------------------------------------------------------- */
+/*                              LOGIN PAGE                                     */
+/* -------------------------------------------------------------------------- */
+
+.login-wrapper {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    background-color: var(--bg-body);
+}
+
+.login-intro {
+    flex: 1;
+    background-color: var(--color-primary);
+    /* Use Primary color for branding side */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle pattern overlay for professional look */
+.login-intro::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.login-intro-content {
+    z-index: 2;
+    text-align: center;
+    max-width: 450px;
+}
+
+.login-intro h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.login-intro p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.login-form-container {
+    flex: 1;
+    background-color: var(--bg-surface);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.login-form-content {
+    width: 100%;
+    max-width: 400px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .login-intro {
+        display: none;
+    }
+
+    .login-form-container {
+        width: 100%;
+    }
+}

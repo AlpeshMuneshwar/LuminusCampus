@@ -1,0 +1,136 @@
+@model webappi.Controllers.ADMIN.CreateUserViewModel
+
+<div class="container-fluid">
+    <h2 class="mb-4">Create New User</h2>
+    
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <form asp-action="CreateEmployee" method="post">
+                <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Full Name</label>
+                        <input asp-for="FullName" class="form-control" required />
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Email</label>
+                        <input asp-for="Email" class="form-control" type="email" required />
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Password</label>
+                        <input asp-for="Password" class="form-control" type="password" required />
+                    </div>
+                </div>
+
+                <h4 class="mb-3 border-bottom pb-2">Assign Rights</h4>
+                <p class="text-muted small">Select the modules and specific pages this user should access.</p>
+
+                <div class="row">
+                    @for (int i = 0; i < Model.AvailableModules.Count; i++)
+                    {
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100 border-light bg-light">
+                                <div class="card-header bg-white border-bottom-0">
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input module-check" type="checkbox" 
+                                               asp-for="@Model.AvailableModules[i].IsSelected" 
+                                               data-module-index="@i">
+                                        <label class="form-check-label fw-bold" asp-for="@Model.AvailableModules[i].IsSelected">
+                                            @Model.AvailableModules[i].ModuleName
+                                        </label>
+                                    </div>
+                                    <input type="hidden" asp-for="@Model.AvailableModules[i].ModuleId" />
+                                    <input type="hidden" asp-for="@Model.AvailableModules[i].ModuleName" />
+                                </div>
+                                <div class="card-body pt-0">
+                                    <ul class="list-unstyled ps-4 mt-2 mb-0">
+                                        @for (int j = 0; j < Model.AvailableModules[i].AvailablePages.Count; j++)
+                                        {
+                                            <li class="mb-1">
+                                                <div class="form-check">
+                                                    <input class="form-check-input page-check-@i" type="checkbox" 
+                                                           asp-for="@Model.AvailableModules[i].AvailablePages[j].IsSelected">
+                                                    <label class="form-check-label text-secondary" 
+                                                           asp-for="@Model.AvailableModules[i].AvailablePages[j].IsSelected">
+                                                        @Model.AvailableModules[i].AvailablePages[j].PageName
+                                                    </label>
+                                                </div>
+                                                <input type="hidden" asp-for="@Model.AvailableModules[i].AvailablePages[j].PageId" />
+                                                <input type="hidden" asp-for="@Model.AvailableModules[i].AvailablePages[j].PageName" />
+                                            </li>
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="mt-4">
+                    <button type="submit" class="btn btn-primary px-4 me-2">Create User</button>
+                    <a href="/Home" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    @if(Model.CreatedUsers != null && Model.CreatedUsers.Any())
+    {
+        <div class="card shadow-sm border-0 mt-5">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">Existing Users</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Full Name</th>
+                                <th>Email</th>
+                                <th>Created On</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var user in Model.CreatedUsers)
+                            {
+                                <tr>
+                                    <td>@user.FullName</td>
+                                    <td>@user.Email</td>
+                                    <td>@user.CreatedOn.ToString("g")</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-sm btn-outline-primary">
+                                            Edit Rights
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+<script>
+    document.querySelectorAll('.module-check').forEach(function(moduleCheck) {
+        moduleCheck.addEventListener('change', function() {
+            var index = this.getAttribute('data-module-index');
+            var isChecked = this.checked;
+            document.querySelectorAll('.page-check-' + index).forEach(function(pageCheck) {
+                pageCheck.checked = isChecked;
+                pageCheck.disabled = !isChecked; // Optional: disable checkboxes if module unselected? 
+                // User said "if given [rights] then he will also have to decide what pages rights".
+                // So if module is ON, pages can be OFF. If module is OFF, pages must be OFF.
+            });
+        });
+
+        // Trigger on load to set initial state if re-rendering with errors
+        // moduleCheck.dispatchEvent(new Event('change'));
+    });
+</script>

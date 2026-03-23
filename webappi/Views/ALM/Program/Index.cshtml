@@ -1,0 +1,53 @@
+@model IEnumerable<webappi.Data.ErpProgram>
+
+@{
+    ViewData["Title"] = "Academic Programs";
+}
+
+<er-card title="Academic Programs" subtitle="Manage degree programs and courses" icon="lni-graduation">
+    <div class="mb-3 text-end">
+        <er-button href="/ALM/Program/Create" icon="lni-plus">Add New Program</er-button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Code</th>
+                    <th>Duration (Years)</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="fw-semibold">@item.Name</div>
+                        </td>
+                        <td><code>@item.Code</code></td>
+                        <td>@item.DurationInYears years</td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <er-badge variant="success">Active</er-badge>
+                            }
+                            else
+                            {
+                                <er-badge variant="secondary">Inactive</er-badge>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <er-button href="/ALM/Program/Edit/@item.Id" variant="secondary" size="sm" icon="lni-pencil">Edit</er-button>
+                                <er-button type="button" variant="danger" size="sm" icon="lni-trash" onclick="return confirm('Are you sure you want to delete this program?');">Delete</er-button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</er-card>

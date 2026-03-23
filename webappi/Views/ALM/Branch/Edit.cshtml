@@ -1,0 +1,36 @@
+@model webappi.Data.ErpBranch
+
+@{
+    ViewData["Title"] = "Edit Branch";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <er-card title="Edit Branch" subtitle="Modify specialization details" icon="lni-pencil">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="CreatedOn" />
+                <input type="hidden" asp-for="CreatedBy" />
+                
+                <er-input asp-for="Name" label="Branch Name" icon="lni-tag" />
+                <er-input asp-for="Code" label="Branch Code" icon="lni-code" />
+                
+                <er-select asp-for="ProgramId" label="Program (Degree)" asp-items="ViewBag.ProgramId" icon="lni-graduation" />
+                
+                <er-select asp-for="DepartmentId" label="Department (Admin Unit)" asp-items="ViewBag.DepartmentId" icon="lni-briefcase" placeholder="-- No Department --" />
+
+                <er-checkbox asp-for="IsActive" label="Is Active" />
+
+                <div class="d-flex gap-2 mt-3">
+                    <er-button type="submit" icon="lni-save">Save Changes</er-button>
+                    <er-button href="/ALM/Branch" variant="Secondary" icon="lni-arrow-left">Back to List</er-button>
+                </div>
+            </form>
+        </er-card>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

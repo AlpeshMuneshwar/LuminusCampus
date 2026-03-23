@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - LuminusCampus</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/base/variables.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/base/components.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/custom/sidebar.css" asp-append-version="true" />
+    <!-- theme.css can be removed or kept blank for legacy specific overrides if needed, but mostly replaced -->
+</head>
+<body>
+
+    <script>
+        // Check for saved theme preference
+        const getPreferredTheme = () => {
+             return localStorage.getItem('theme') || 'light';
+        };
+
+        const updateToggleIcon = (theme) => {
+            document.querySelectorAll('.theme-selector-item').forEach(el => {
+                el.classList.remove('active');
+                if(el.dataset.theme === theme) el.classList.add('active');
+            });
+        };
+        
+        window.updateToggleIcon = updateToggleIcon;
+
+        const setTheme = theme => {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            updateToggleIcon(theme);
+        };
+
+        const currentTheme = getPreferredTheme();
+        setTheme(currentTheme);
+    </script>
+    
+    <!-- Mobile Hamburger Toggle -->
+    <button class="toggle-btn" id="sidebar-toggle-btn" type="button">
+        <i class="lni lni-menu"></i>
+    </button>
+
+    @if (User.Identity?.IsAuthenticated == true)
+    {
+        <div class="wrapper">
+            <vc:sidebar />
+
+            <div class="main">
+                @await Html.PartialAsync("_Notification")
+                <div class="p-3">
+                    @RenderBody()
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="container">
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
+    }
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/custom/site.js" asp-append-version="true"></script>
+    <script src="~/js/custom/sidebar.js" asp-append-version="true"></script>
+    <!-- notification.js merged into site.js -->
+
+    <script>
+        $(document).ready(function() {
+            @if (TempData["Success"] != null)
+            {
+                <text>showToast('success', '@TempData["Success"]');</text>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <text>showToast('error', '@TempData["Error"]');</text>
+            }
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,60 @@
+@model IEnumerable<webappi.Data.ErpAcademicYear>
+
+@{
+    ViewData["Title"] = "Academic Years";
+}
+
+<er-card title="Academic Years" subtitle="Manage academic sessions and batches" icon="lni-calendar">
+    <div class="mb-3 text-end">
+        <er-button href="/ALM/AcademicYear/Create" icon="lni-plus">Add New Session</er-button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Current</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="@(item.IsCurrent ? "table-success" : "")">
+                        <td>
+                            <div class="fw-semibold">@item.Name</div>
+                        </td>
+                        <td>@item.StartDate.ToString("dd-MMM-yyyy")</td>
+                        <td>@item.EndDate.ToString("dd-MMM-yyyy")</td>
+                        <td>
+                            @if (item.IsCurrent)
+                            {
+                                <er-badge variant="primary">Current</er-badge>
+                            }
+                        </td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <er-badge variant="success">Active</er-badge>
+                            }
+                            else
+                            {
+                                <er-badge variant="secondary">Inactive</er-badge>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <er-button href="/ALM/AcademicYear/Edit/@item.Id" variant="secondary" size="sm" icon="lni-pencil">Edit</er-button>
+                                <er-button type="button" variant="danger" size="sm" icon="lni-trash" onclick="return confirm('Are you sure?');">Delete</er-button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</er-card>

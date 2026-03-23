@@ -1,0 +1,55 @@
+@model webappi.Models.DashboardViewModel
+
+@{
+    ViewData["Title"] = "SuperAdmin Dashboard";
+}
+
+<div style="margin-bottom: 2rem;">
+    <h1>Overview</h1>
+    <p style="color: var(--text-secondary);">System usage statistics and quick links.</p>
+</div>
+
+<!-- Stats Grid -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+    
+    <div class="card" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <span style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Total Clients</span>
+        <span style="font-size: 2.5rem; font-weight: 700; color: var(--accent);">@Model.TotalClients</span>
+        <a href="/SuperAdmin/Clients" style="font-size: 0.85rem; color: var(--accent); text-decoration: none;">View All Clients &rarr;</a>
+    </div>
+
+    <div class="card" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <span style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Active Modules</span>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #22c55e;">@Model.TotalModules</span>
+        <a href="/SuperAdmin/Modules" style="font-size: 0.85rem; color: #22c55e; text-decoration: none;">Manage Modules &rarr;</a>
+    </div>
+
+    <div class="card" style="display: flex; flex-direction: column; gap: 0.5rem;">
+        <span style="font-size: 0.85rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em;">Total Pages</span>
+        <span style="font-size: 2.5rem; font-weight: 700; color: #f97316;">@Model.TotalPages</span>
+        <a href="/SuperAdmin/Pages" style="font-size: 0.85rem; color: #f97316; text-decoration: none;">Manage Pages &rarr;</a>
+    </div>
+
+</div>
+
+<!-- Modules & Pages Breakdown -->
+<div class="card">
+    <h3 style="margin-bottom: 1.5rem;">Pages per Module</h3>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <th style="padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border);">Module Name</th>
+                <th style="padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border);">Page Count</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model.PagesPerModule)
+            {
+                <tr>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid var(--border);">@item.Key</td>
+                    <td style="padding: 0.75rem; border-bottom: 1px solid var(--border);">@item.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

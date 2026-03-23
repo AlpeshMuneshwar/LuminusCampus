@@ -1,0 +1,57 @@
+@model IEnumerable<webappi.Data.ErpSemester>
+
+@{
+    ViewData["Title"] = "Semesters";
+}
+
+<er-card title="Semesters" subtitle="Manage academic terms and periods" icon="lni-layers">
+    <div class="mb-3 text-end">
+        <er-button href="/ALM/Semester/Create" icon="lni-plus">Add New Semester</er-button>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle">
+            <thead>
+                <tr>
+                    <th>Semester Name</th>
+                    <th>Code</th>
+                    <th>Sequence</th>
+                    <th>Program</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="fw-semibold">@item.Name</div>
+                        </td>
+                        <td><code>@item.Code</code></td>
+                        <td>
+                            <er-badge variant="secondary" size="sm">@item.SequenceNo</er-badge>
+                        </td>
+                        <td>@item.Program?.Code</td>
+                        <td>
+                            @if (item.IsActive)
+                            {
+                                <er-badge variant="success">Active</er-badge>
+                            }
+                            else
+                            {
+                                <er-badge variant="secondary">Inactive</er-badge>
+                            }
+                        </td>
+                        <td>
+                            <div class="d-flex gap-2">
+                                <er-button href="/ALM/Semester/Edit/@item.Id" variant="secondary" size="sm" icon="lni-pencil">Edit</er-button>
+                                <er-button type="button" variant="danger" size="sm" icon="lni-trash" onclick="return confirm('Are you sure?');">Delete</er-button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</er-card>

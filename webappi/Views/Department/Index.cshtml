@@ -1,0 +1,54 @@
+@model IEnumerable<webappi.Data.ErpDepartment>
+
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<div class="card card-flush">
+    <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+        <div class="card-title">
+            <h3>Departments</h3>
+        </div>
+        <div class="card-toolbar">
+            <a asp-action="Create" class="btn btn-primary">Add New Department</a>
+        </div>
+    </div>
+    <div class="card-body pt-0">
+        <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_departments_table">
+            <thead>
+                <tr class="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody class="fw-semibold text-gray-600">
+                @foreach (var item in Model) {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Description</td>
+                    <td>
+                        @if(item.IsActive)
+                        {
+                            <span class="badge badge-light-success">Active</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-light-danger">Inactive</span>
+                        }
+                    </td>
+                    <td class="text-end">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-icon btn-bg-light btn-active-color-danger btn-sm">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

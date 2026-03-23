@@ -1,0 +1,54 @@
+@using System.Security.Claims
+@inject webappi.Services.Interfaces.IMenuService MenuService
+
+@{
+    var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier) ?? "0");
+    var userRole = User.IsInRole("SuperAdmin") ? "SuperAdmin" : "Admin";
+    var menu = await MenuService.GetMenuForUserAsync(userId, userRole);
+    // var menu = new List<webappi.Services.Interfaces.MenuSection>(); // Empty for test
+}
+
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="logo">
+            <span class="logo-icon">L</span>
+            <span class="logo-text">LuminusCampus</span>
+        </div>
+    </div>
+    
+    <nav class="sidebar-nav">
+        @foreach (var menuGroup in menu)
+        {
+            <div class="menu-section">
+                <div class="menu-section-title">@menuGroup.Title</div>
+                @foreach (var item in menuGroup.Items)
+                {
+                    <a href="@item.Url" class="menu-item @(item.IsActive ? "active" : "")">
+                        <i class="@item.Icon"></i>
+                        <span>@item.Title</span>
+                    </a>
+                }
+            </div>
+        }
+    </nav>
+
+    <div class="sidebar-footer">
+        <div class="user-profile">
+            <div class="avatar">
+                <span>@User.Identity?.Name?.Substring(0, 2).ToUpper()</span>
+            </div>
+            <div class="user-info">
+                <span class="user-email">@User.Identity?.Name</span>
+                <span class="user-role">@userRole</span>
+            </div>
+        </div>
+        <div class="theme-toggles">
+            <button class="theme-btn active" title="Light"></button>
+            <button class="theme-btn" title="Dark"></button>
+            <button class="theme-btn" title="System"></button>
+        </div>
+        <button id="logoutBtn" class="logout-btn">
+            <i class="lni lni-exit"></i> Logout
+        </button>
+    </div>
+</aside>

@@ -1,0 +1,270 @@
+/* --- Component Styles --- */
+
+/* 1. Glass Card */
+.er-card {
+    background: var(--surface);
+    backdrop-filter: blur(14px);
+    /* Glass Effect (if bg allows transparent) */
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: 0;
+    /* Padding inside body */
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+[data-theme="dark"] .er-card {
+    background: var(--surface-glass);
+    border-color: var(--glass-border);
+}
+
+.er-card-header {
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.er-card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.er-card-title-group {
+    flex: 1;
+}
+
+.er-card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.er-card-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 2px 0 0 0;
+}
+
+.er-card-body {
+    padding: 1.5rem;
+}
+
+/* 2. Inputs (Floating or Minimal) */
+.er-form-group {
+    margin-bottom: 1.25rem;
+}
+
+.er-label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+.er-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.er-input-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--text-muted);
+    font-size: 1.1rem;
+    pointer-events: none;
+}
+
+.er-input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    padding-left: 1rem;
+    /* Default if no icon */
+    font-size: 0.95rem;
+    color: var(--text-main);
+    background: var(--bg-app);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.er-input.has-icon {
+    padding-left: 2.75rem;
+}
+
+.er-input:focus {
+    background: var(--surface);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px var(--primary-light);
+    outline: none;
+}
+
+.er-validation-error {
+    color: var(--danger);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+    display: block;
+}
+
+/* 3. Buttons */
+.er-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    text-decoration: none;
+}
+
+.er-btn-sm {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
+}
+
+.er-btn-md {
+    padding: 0.65rem 1.25rem;
+    font-size: 0.9rem;
+}
+
+.er-btn-lg {
+    padding: 0.85rem 1.75rem;
+    font-size: 1rem;
+}
+
+.er-btn-primary {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(var(--primary-hue), 50, 50, 0.2);
+}
+
+.er-btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.er-btn-secondary {
+    background: transparent;
+    border-color: var(--border-color);
+    color: var(--text-main);
+}
+
+.er-btn-secondary:hover {
+    background: var(--bg-app);
+}
+
+.er-btn-danger {
+    background: var(--danger);
+    color: #fff;
+}
+
+.er-btn-danger:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+}
+
+/* 4. Checkbox */
+.er-checkbox-group {
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.er-checkbox {
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: var(--radius-sm);
+    border: 2px solid var(--border-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.er-checkbox:checked {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+.er-checkbox-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-main);
+    cursor: pointer;
+    margin: 0;
+}
+
+/* 5. Badge (Status Pills) */
+.er-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+.er-badge-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.7rem;
+}
+
+.er-badge-md {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8rem;
+}
+
+.er-badge-lg {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.er-badge-primary {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+
+.er-badge-secondary {
+    background: #f1f5f9;
+    color: var(--text-muted);
+}
+
+.er-badge-success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.er-badge-danger {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.er-badge-warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.er-badge-info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+[data-theme="dark"] .er-badge-secondary {
+    background: var(--border-color);
+    color: var(--text-main);
+}

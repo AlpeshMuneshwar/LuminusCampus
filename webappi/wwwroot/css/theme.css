@@ -1,0 +1,812 @@
+/* theme.css */
+
+:root {
+    /* --- color palette (shared) --- */
+    --color-primary: #007bff;
+    --color-primary-hover: #0056b3;
+    --color-secondary: #6c757d;
+    --color-secondary-hover: #545b62;
+    --color-success: #28a745;
+    --color-danger: #dc3545;
+    --color-warning: #ffc107;
+    --color-info: #17a2b8;
+
+    /* --- light theme defaults --- */
+    --bg-body: #f4f6f9;
+    /* slightly distinct from surface */
+    --bg-surface: #ffffff;
+    --bg-input: #ffffff;
+    --text-main: #333333;
+    --text-muted: #6c757d;
+    --border-color: #e0e0e0;
+    --border-radius: 8px;
+    /* softer look */
+
+    /* control specifics */
+    --input-focus-border: #80bdff;
+    --input-focus-shadow: rgba(0, 123, 255, 0.15);
+
+    /* premium touches */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="dark"] {
+    /* --- dark theme overrides (matte) --- */
+    --bg-body: #121212;
+    --bg-surface: #1e1e1e;
+    --bg-input: #2d2d2d;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --border-color: #404040;
+
+    --color-primary: #4f93ce;
+    --color-primary-hover: #3a7ab0;
+    --input-focus-border: #4f93ce;
+    --input-focus-shadow: rgba(79, 147, 206, 0.25);
+
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="green"] {
+    /* --- light green / mint theme --- */
+    --bg-body: #E8F5E9;
+    --bg-surface: #ffffff;
+    /* theme.css */
+
+    :root {
+        /* --- color palette (shared) --- */
+        --color-primary: #007bff;
+        --color-primary-hover: #0056b3;
+        --color-secondary: #6c757d;
+        --color-secondary-hover: #545b62;
+        --color-success: #28a745;
+        --color-danger: #dc3545;
+        --color-warning: #ffc107;
+        --color-info: #17a2b8;
+
+        /* --- light theme defaults --- */
+        --bg-body: #f4f6f9;
+        /* slightly distinct from surface */
+        --bg-surface: #ffffff;
+        --bg-input: #ffffff;
+        --text-main: #333333;
+        --text-muted: #6c757d;
+        --border-color: #e0e0e0;
+        --border-radius: 8px;
+        /* softer look */
+
+        /* control specifics */
+        --input-focus-border: #80bdff;
+        --input-focus-shadow: rgba(0, 123, 255, 0.15);
+
+        /* premium touches */
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] {
+        /* --- dark theme overrides (matte) --- */
+        --bg-body: #121212;
+        --bg-surface: #1e1e1e;
+        --bg-input: #2d2d2d;
+        --text-main: #e0e0e0;
+        --text-muted: #a0a0a0;
+        --border-color: #404040;
+
+        --color-primary: #4f93ce;
+        --color-primary-hover: #3a7ab0;
+        --input-focus-border: #4f93ce;
+        --input-focus-shadow: rgba(79, 147, 206, 0.25);
+
+        --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    [data-theme="green"] {
+        /* --- light green / mint theme --- */
+        --bg-body: #E8F5E9;
+        --bg-surface: #ffffff;
+        --bg-input: #f1f8e9;
+        --text-main: #1b5e20;
+        --text-muted: #4caf50;
+        --border-color: #a5d6a7;
+
+        --color-primary: #2E7D32;
+        --color-primary-hover: #1b5e20;
+
+        --input-focus-border: #2E7D32;
+        --input-focus-shadow: rgba(46, 125, 50, 0.2);
+
+        --shadow-sm: 0 2px 8px rgba(46, 125, 50, 0.1);
+
+        /* Loading Container Specifics */
+        --loader-bg: #2E7D32;
+        --loader-text: #ffffff;
+    }
+
+    [data-theme="blue"] {
+        /* --- fresh blue theme --- */
+        --bg-body: #E3F2FD;
+        --bg-surface: #ffffff;
+        --bg-input: #e1f5fe;
+        --text-main: #0d47a1;
+        --text-muted: #2196f3;
+        --border-color: #90caf9;
+
+        --color-primary: #1565C0;
+        --color-primary-hover: #0d47a1;
+
+        --input-focus-border: #1565C0;
+        --input-focus-shadow: rgba(21, 101, 192, 0.2);
+
+        --shadow-sm: 0 2px 8px rgba(21, 101, 192, 0.1);
+
+        /* Loading Container Specifics */
+        --loader-bg: #1565C0;
+        --loader-text: #ffffff;
+    }
+
+    /* Global Styles */
+    body {
+        background-color: var(--bg-body);
+        color: var(--text-main);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Modal Styles */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1050;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .modal.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 1;
+    }
+
+    .modal-content {
+        background-color: var(--bg-surface);
+        color: var(--text-main);
+        margin: auto;
+        padding: 2rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        position: relative;
+        transform: translateY(-20px);
+        transition: transform 0.3s ease;
+    }
+
+    .modal.active .modal-content {
+        transform: translateY(0);
+    }
+
+    /* Input Styles - Premium Look */
+    .theme-input {
+        display: block;
+        width: 100%;
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
+        color: var(--text-main);
+        background-color: var(--bg-input);
+        background-clip: padding-box;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .theme-input:focus {
+        border-color: var(--input-focus-border);
+        box-shadow: 0 0 0 3px var(--input-focus-shadow);
+        background-color: var(--bg-surface);
+    }
+
+    .theme-input::placeholder {
+        color: var(--text-muted);
+        opacity: 0.8;
+    }
+
+    /* Button Styles - Premium Look */
+    .theme-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+        text-align: center;
+        vertical-align: middle;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 0.6rem 1.5rem;
+        font-size: 0.95rem;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: var(--shadow-sm);
+    }
+
+    .theme-btn-primary {
+        color: #fff;
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+
+    .theme-btn-primary:hover {
+        filter: brightness(110%);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px var(--input-focus-shadow);
+    }
+
+    .theme-btn-secondary {
+        color: #fff;
+        background-color: var(--color-secondary);
+        border-color: var(--color-secondary);
+    }
+
+    .theme-btn-secondary:hover {
+        filter: brightness(110%);
+    }
+
+    .theme-selector-item {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        margin: 0 4px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        background: var(--bg-surface);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .theme-selector-item .theme-color-preview {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+    .theme-selector-item.active {
+        border: 2px solid var(--color-primary);
+        box-shadow: 0 0 5px var(--color-primary);
+    }
+
+    .login-wrapper {
+        display: flex;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 2000;
+        background-color: var(--bg-body);
+    }
+
+    .login-intro {
+        flex: 1;
+        background-color: var(--login-bg);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        /* Align content to the right (towards center) */
+        justify-content: center;
+        padding: 2rem 1rem 2rem 2rem;
+        /* Less padding on the right */
+        position: relative;
+        text-align: right;
+        /* Text align right to hug center */
+    }
+
+    /* Update content centering overrides if needed, or keep alignment right */
+    .login-intro-content {
+        max-width: 450px;
+        display: flex;
+        /* Use flex to strictly center children */
+        flex-direction: column;
+        align-items: center;
+        /* Center image/text relative to each other */
+        text-align: center;
+        /* Keep internal text centered */
+        margin-right: 4rem;
+        /* INCREASED offset from center seam */
+        z-index: 2;
+    }
+
+    .login-intro h2 {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .login-image-slider {
+        position: relative;
+        width: 100%;
+        max-width: 450px;
+        height: 35vh;
+        min-height: 300px;
+        max-height: 500px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 1rem;
+        margin-left: auto;
+        /* Ensure centering works if width < 100% */
+        margin-right: auto;
+    }
+
+    .login-slide {
+        position: absolute;
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .login-slide.active {
+        opacity: 1;
+    }
+
+    .login-slide img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    .login-dots {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .login-dot {
+        width: 10px;
+        height: 10px;
+        background-color: var(--login-dot-inactive);
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .login-dot.active {
+        background-color: var(--login-dot-active);
+    }
+
+    .login-form-container {
+        flex: 1;
+        background-color: var(--login-form-bg);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        /* Align form to left (towards center) */
+        padding: 2rem 2rem 2rem 1rem;
+        /* Less padding on the left */
+        position: relative;
+        overflow-y: auto;
+    }
+
+    /* Ensure form content itself (inputs etc) isn't too wide or too narrow */
+    .login-form-content {
+        /* Assuming a wrapper exists or target direct children? */
+        /* If no wrapper, we might need to target the form element */
+        width: 100%;
+        max-width: 400px;
+        margin-left: 4rem;
+        /* INCREASED offset from center seam */
+    }
+
+    .login-brand-logo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+        object-fit: cover;
+    }
+
+    .login-brand-title {
+        font-family: 'serif';
+        font-size: 2rem;
+        color: var(--login-text);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .login-brand-subtitle {
+        color: var(--text-muted);
+        margin-bottom: 3rem;
+        font-size: 0.9rem;
+    }
+
+    /* Custom Login Button to match design (Dark, full width) */
+    .btn-login-custom {
+        background-color: #1F2937;
+        /* Force Dark Navy for contrast */
+        color: #fff;
+        width: 100%;
+        padding: 0.8rem;
+        border-radius: 4px;
+        font-weight: 600;
+        margin-top: 1rem;
+        border: none;
+        transition: background 0.3s;
+    }
+
+    .btn-login-custom:hover {
+        background-color: #111827;
+        color: #fff;
+    }
+
+    .login-link {
+        color: var(--login-text);
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .login-link:hover {
+        text-decoration: underline;
+    }
+
+    /* Revert alignment for mobile in media query */
+    @media (max-width: 900px) {
+        .login-intro {
+            display: none;
+        }
+
+        .login-form-container {
+            padding: 1.5rem;
+            align-items: center;
+            /* Center on mobile */
+            flex: 1;
+            width: 100%;
+        }
+    }
+
+    /* --- Premium Toast Notifications --- */
+    #toast-container-custom {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        pointer-events: none;
+        /* Allow clicking through container */
+    }
+
+    .toast-custom {
+        pointer-events: auto;
+        width: 350px;
+        background: var(--bg-surface);
+        color: var(--text-main);
+        border-radius: var(--border-radius);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        /* Deep shadow */
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        position: relative;
+        overflow: hidden;
+        /* Thick Border Logic - Default */
+        border-left: 6px solid var(--color-primary);
+
+        /* Animation */
+        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    /* Theme Awareness for Text */
+    [data-theme="dark"] .toast-custom {
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        /* Stronger shadow for dark mode */
+    }
+
+    /* Success Type */
+    .toast-success {
+        border-left-color: var(--color-success);
+    }
+
+    .toast-success .toast-icon {
+        color: var(--color-success);
+        background: rgba(40, 167, 69, 0.1);
+    }
+
+    /* Error Type */
+    .toast-error {
+        border-left-color: var(--color-danger);
+    }
+
+    .toast-error .toast-icon {
+        color: var(--color-danger);
+        background: rgba(220, 53, 69, 0.1);
+    }
+
+    /* Warning Type */
+    .toast-warning {
+        border-left-color: var(--color-warning);
+    }
+
+    .toast-warning .toast-icon {
+        color: var(--color-warning);
+        background: rgba(255, 193, 7, 0.1);
+    }
+
+    .toast-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    .toast-content {
+        flex: 1;
+    }
+
+    .toast-title {
+        font-size: 1rem;
+        font-weight: 700;
+        margin: 0 0 2px 0;
+        color: var(--text-main);
+    }
+
+    .toast-message {
+        font-size: 0.85rem;
+        margin: 0;
+        color: var(--text-muted);
+        line-height: 1.4;
+    }
+
+    .toast-close {
+        background: transparent;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        color: var(--text-muted);
+        cursor: pointer;
+        margin-left: 10px;
+        transition: color 0.2s;
+    }
+
+    .toast-close:hover {
+        color: var(--text-main);
+    }
+
+    /* Progress Bar */
+    .toast-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: rgba(0, 0, 0, 0.1);
+        width: 100%;
+        animation: progress 5s linear forwards;
+    }
+
+    [data-theme="dark"] .toast-progress {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes progress {
+        from {
+            width: 100%;
+        }
+
+        to {
+            width: 0%;
+        }
+    }
+
+    /* Animations */
+    .slide-in-right {
+        animation: slideInRight 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+    }
+
+    .slide-out-right {
+        animation: slideOutRight 0.5s forwards;
+        opacity: 0;
+    }
+
+    @keyframes slideInRight {
+        from {
+            transform: translateX(120%);
+        }
+
+        to {
+            transform: translateX(0);
+        }
+    }
+
+    @keyframes slideOutRight {
+        from {
+            transform: translateX(0);
+        }
+
+        to {
+            transform: translateX(120%);
+        }
+    }
+
+    /* Global Toast Container - Top Center */
+    #toast-container-custom {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 99999;
+        /* Above everything */
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        pointer-events: none;
+        /* Allow clicking through container */
+        width: 90%;
+        max-width: 400px;
+    }
+
+    /* Base Toast Style */
+    .toast-custom {
+        pointer-events: auto;
+        background: var(--bg-surface);
+        color: var(--text-main);
+        border-radius: 8px;
+        /* Slightly more rounded */
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        /* Deep shadow for floating effect */
+        display: flex;
+        align-items: flex-start;
+        padding: 1rem;
+        position: relative;
+        overflow: hidden;
+        border-left: 5px solid var(--color-primary);
+        backdrop-filter: blur(10px);
+        /* Glassmorphism if supported */
+    }
+
+    /* Animations */
+    .slide-in-top {
+        animation: slideInTop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes slideInTop {
+        from {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .slide-out-top {
+        animation: slideOutTop 0.4s forwards;
+    }
+
+    @keyframes slideOutTop {
+        from {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        to {
+            opacity: 0;
+            transform: translateY(-50px);
+        }
+    }
+
+    /* Toast Variants */
+    .toast-success {
+        border-left-color: #28a745;
+    }
+
+    .toast-success .toast-icon {
+        color: #28a745;
+        background: rgba(40, 167, 69, 0.1);
+    }
+
+    .toast-error {
+        border-left-color: #dc3545;
+    }
+
+    .toast-error .toast-icon {
+        color: #dc3545;
+        background: rgba(220, 53, 69, 0.1);
+    }
+
+    .toast-warning {
+        border-left-color: #ffc107;
+    }
+
+    .toast-warning .toast-icon {
+        color: #ffc107;
+        background: rgba(255, 193, 7, 0.1);
+    }
+
+    .toast-info {
+        border-left-color: #17a2b8;
+    }
+
+    .toast-info .toast-icon {
+        color: #17a2b8;
+        background: rgba(23, 162, 184, 0.1);
+    }
+
+    /* Icon & Content */
+    .toast-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        margin-right: 12px;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .toast-content {
+        flex: 1;
+    }
+
+    .toast-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        margin: 0 0 4px 0;
+    }
+
+    .toast-message {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .toast-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        color: var(--text-muted);
+        cursor: pointer;
+        padding: 0 0 0 10px;
+        opacity: 0.6;
+        transition: opacity 0.2s;
+    }
+
+    .toast-close:hover {
+        opacity: 1;
+    }
+
+    /* Progress Bar */
+    .toast-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 3px;
+        background: rgba(0, 0, 0, 0.1);
+        width: 100%;
+    }}
