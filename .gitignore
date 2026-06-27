@@ -1,17 +1,8 @@
-# .gitignore for .NET
+# .gitignore for LuminusCampus
+
+# Build output
 [Bb]in/
 [Oo]bj/
-.vs/
-.vscode/
-
-# User-specific files
-*.user
-*.userosscache
-*.sln.docstates
-appsettings.json
-appsettings.Development.json
-
-# Build results
 [Dd]ebug/
 [Rr]elease/
 x64/
@@ -19,9 +10,20 @@ x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 
-# Logs
-*.log
-*.txt
+# IDE / Editor
+.vs/
+.vscode/
+*.user
+*.userosscache
+*.sln.docstates
+
+# Sensitive config (use appsettings.Example.json)
+appsettings.json
+appsettings.Development.json
+**/Properties/launchSettings.json
+
+# Debug / Test files
+*.http
 
 # Archives
 *.zip
@@ -30,6 +32,9 @@ x86/
 # Solution files
 *.slnx
 
-# OS generated files
+# Logs
+*.log
+
+# OS generated
 .DS_Store
 Thumbs.db
